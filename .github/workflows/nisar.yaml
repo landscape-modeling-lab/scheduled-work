@@ -34,10 +34,12 @@ jobs:
           use-public-rspm: true # Use compiled R binaries for Linux
         
       - name: Install nisar package
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           Rscript -e 'install.packages("remotes")'
           Rscript -e 'remotes::install_github("landscape-modeling-lab/nisar")'
       
       - name: NISAR S3 auth
         run: |
-          Rscript -e 's3_auth(verbose = TRUE)'
+          Rscript -e 'nisar::s3_auth(verbose = TRUE)'
