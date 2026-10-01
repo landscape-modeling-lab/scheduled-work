@@ -41,5 +41,9 @@ jobs:
           Rscript -e 'remotes::install_github("landscape-modeling-lab/nisar")'
       
       - name: NISAR S3 auth
+        env:
+          EDL_TOKEN: ${{ secrets.EDL_TOKEN }}
+          EARTHDATA_USERNAME: ${{ secrets.EARTHDATA_USERNAME }}
+          EARTHDATA_PASSWORD: ${{ secrets.EARTHDATA_PASSWORD }}
         run: |
           Rscript -e 'nisar::s3_auth(verbose = TRUE)'
